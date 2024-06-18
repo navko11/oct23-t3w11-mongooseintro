@@ -10,9 +10,10 @@ router.get("/", (request, response) => {
 
 
 // GET localhost:3000/contacts/all
-router.get("/all", async(request,response) => {
+router.get("/all", async (request,response) => {
 	let results = await Contact.find().exec();
-	console.log("Found d")
+	console.log("Found documents:");
+	console.log(results);
 	response.json({
 		message: "Found documents!",
 		data: results
@@ -20,13 +21,26 @@ router.get("/all", async(request,response) => {
 });
 
 // GET localhost:3000/contacts/1234
-router.get("/:id", (request, response) => {
-
+// VERB ip:port/controller/:banana
+router.get("/:banana", async (request,response) => {
+	let results = await Contact.findById(request.params.banana).exec();
+	console.log("Found documents:");
+	console.log(results);
+	response.json({
+		message: "Found documents!",
+		data: results
+	});
 });
 
 // POST localhost:3000/contacts/
-router.post("/", (request, response) => {
-
+router.post("/", async (request,response) => {
+	let results = await Contact.create(request.body);
+	console.log("Created documents:");
+	console.log(results);
+	response.json({
+		message: "Created documents!",
+		data: results
+	});
 });
 
 // PATCH localhost:3000/contacts/1234
